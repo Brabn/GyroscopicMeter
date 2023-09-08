@@ -40,7 +40,7 @@ Desktop application to receive data form three-axis accelerometer/gyroscope.
 Can work on any PC with operating system supporting .NET framework (windows 7,10,11)
 The main window contains central panel, all values can be displayed in graphical form.
 
-!(Main window of control application)[https://github.com/Brabn/GyroscopicMeter/blob/main/Photo/GyroControl.Control_application.png]
+![Main window of control application](https://github.com/Brabn/GyroscopicMeter/blob/main/Photo/GyroControl.Control_application.png)
 
 The buttons in the top row are used to zoom (you can also use the scroll wheel), reset the zoom (double click the middle mouse button), move the field of view on the chart (you can use the middle mouse button), show the slider with the current values.
 An independent setting of the line display style for each parameter can be applied using the panel on the right side of the window.
