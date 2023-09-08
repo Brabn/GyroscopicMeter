@@ -56,7 +56,9 @@ A separate panel is designed to select the port to which the controller will be 
 ## Main functions of control application:
 1.	Incoming data (“Chart”) mode
 Main mode by default. Indicate current values of sensor (when controller connected) or full graph (from previously opened logs). The display of any of the parameters can be disabled or configured independently (change the color and thickness of the line, the vertical scale)
- 
+
+![Incoming data (“Chart”) mode of control application](https://github.com/Brabn/GyroscopicMeter/blob/main/Photo/GyroControl.Basic_data_graph.png)
+
 Graphical display of the following incoming data:
 * Time (from start of test)
 * Angle (-X, -Y)
@@ -74,7 +76,9 @@ Control elements:
  
 2.	Dynamic data (“Dynamic”) mode:
 Activating after selecting test period (certain period of time while acceleration/deceleration were made)
- 
+
+![Dynamic data (“Dynamic”) mode of control application](https://github.com/Brabn/GyroscopicMeter/blob/main/Photo/GyroControl.Basic_dynamic_data_graph.png)
+
 Graphical display of the following data:
 * Angle (-X, -Y)
 * Linear acceleration (-X, -Y, -Z)
@@ -92,11 +96,14 @@ Control elements:
   - Add XXX g With Coefficient XXX– Additional adjustment of the force of gravity (to reduce the effect of inaccurate placement of the sensor to the horizontal plane)- absolute and relative correction
   - Smoothing (slider) –changes the degree of smoothing of lines on graphs, which is achieved by averaging the last few values. Allows you to reduce the "noise" from fluctuating values, which does not affect the overall measurement accuracy.
 Example of different levels if smoothing for the same initial data:
- 
+
+![Example of different levels if smoothing for the same initial data](https://github.com/Brabn/GyroscopicMeter/blob/main/Photo/GyroControl.Various_degree_of_smoothing.png)
 
 3.	RPM mode:
 Indicating of motor RPM chart for the selected test run based on speed data and reference RPM (corresponds to 30km/h), selected in Main mode.
- 
+
+![RPM mode of control application](https://github.com/Brabn/GyroscopicMeter/blob/main/Photo/GyroControl.RPM_chart.png)
+
 Graph can be saved separately from the underlying data
 Previously saved race logs can be opened by clicking on the "Add for comparison" button
 
