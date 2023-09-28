@@ -1,0 +1,831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ArduinoText.Text" xml:space="preserve">
+    <value>/* 
+Программа мониторинга линейных и угловых перемещений на
+основе цифрового акселерометра MPU6050 и контроллера Arduino
+По всем вопросам обращаться на barabaniuk@gmail.com
+Версия 1.3 от 26.08.15*/
+
+#include &lt;Wire.h&gt;
+#include &lt;Kalman.h&gt;
+
+int AverageTime=2;
+boolean logging=true;
+int timeint=100;
+long timing=0;
+long lasttiming=0;
+String inputString;
+Kalman kalmanX;
+Kalman kalmanY;
+Kalman kalmanZ;
+uint8_t IMUAddress = 0x68;
+ 
+/* IMU Data */
+int16_t accX;
+int16_t accY;
+int16_t accZ;
+int16_t tempRaw;
+int16_t gyroX;
+int16_t gyroY;
+int16_t gyroZ;
+ 
+double accXangle; // Angle calculate using the accelerometer
+double accYangle;
+double accZangle;
+double temp;
+double gyroXangle = 180; // Angle calculate using the gyro
+double gyroYangle = 180;
+double gyroZangle = 180;
+double compAngleX = 180; // Calculate the angle using a Kalman filter
+double compAngleY = 180;
+double compAngleZ = 180;
+double kalAngleX; // Calculate the angle using a Kalman filter
+double kalAngleY;
+double kalAngleZ; 
+
+double ZeroXangle=180;
+double ZeroYangle=180;
+double ZeroToXangle;
+double ZeroToYangle;
+
+double accY01Zero;
+double acc01Zero;
+double acc02Zero;
+double acc03Zero;
+
+double acc01;
+double acc02;
+double acc03;
+double accY01;
+double speedZero;
+double distZero;
+double LastAccSum;
+int counter=0;
+
+double angZeroFiltred;
+double accY01Filtred;
+double acc01Filtred;
+double acc02Filtred;
+double acc03Filtred;
+
+uint32_t timer;
+byte Tock=0;
+
+boolean Zeroed=false;
+class Average
+{
+  public:
+  double LastValues[50];
+  double AverageValue;
+  double AverageSum;
+  int avermode;
+  int num;
+  Average(int mode)
+  {
+   AverageValue=0;
+   AverageSum=0;
+   num=0;
+   avermode=mode;
+  }
+  void Clear()
+  {
+       for (int i=0; i&lt;=50; i++)
+      {
+         LastValues[i]=0;
+         AverageValue=0;
+   AverageSum=0;
+   num=0;
+
+      }
+  }
+  double GetAverage()
+  {
+     if (avermode==1)
+     {
+     for (int i=0; i&lt;=50; i++)
+      {
+         AverageSum+=LastValues[i];
+      }
+    AverageValue=(double)AverageSum/(double)50;
+    AverageSum=0;
+     }
+    
+    return AverageValue;
+  }
+  void AddValue(double newValue)
+  {
+    LastValues[num++]=newValue;
+    
+    if (num&gt;=50) num=0;
+  }
+};
+bool ZeroSet=false;
+long ZeroSetTime=0;
+Average accY01A(1);
+Average acc01A(1);
+Average acc02A(1);
+Average acc03A(1);
+void setup() {
+ 
+  Serial.begin(115200);
+  Wire.begin();
+  Serial.begin(9600);
+            
+ 
+  i2cWrite(0x6B,0x00); // Disable sleep mode      
+  kalmanX.setAngle(180); // Set starting angle
+  kalmanY.setAngle(180);
+  kalmanZ.setAngle(180);
+  timer = micros();
+   //setZeroAngle();
+   Zeroed=false;
+   lasttiming=0;
+}
+ 
+void loop() {
+  /* Update all the values */
+  uint8_t* data = i2cRead(0x3B,14);
+  accX = ((data[0] &lt;&lt; 8) | data[1]);
+  accY = ((data[2] &lt;&lt; 8) | data[3]);
+  accZ = ((data[4] &lt;&lt; 8) | data[5]);
+  tempRaw = ((data[6] &lt;&lt; 8) | data[7]);
+  gyroX = ((data[8] &lt;&lt; 8) | data[9]);
+  gyroY = ((data[10] &lt;&lt; 8) | data[11]);
+  gyroZ = ((data[12] &lt;&lt; 8) | data[13]);
+ 
+  /* Calculate the angls based on the different sensors and algorithm */
+  accYangle = (atan2(accX,accZ)+PI)*RAD_TO_DEG;
+  accXangle = (atan2(accY,accZ)+PI)*RAD_TO_DEG;  
+  //accZangle = (atan2(accX,accY)+PI)*RAD_TO_DEG;  
+  
+  double gyroXrate = (double)gyroX/131.0;
+  double gyroYrate = -((double)gyroY/131.0);
+  double gyroZrate = ((double)gyroZ/131.0);
+  
+  gyroXangle += kalmanX.getRate()*((double)(micros()-timer)/1000000); // Calculate gyro angle using the unbiased rate
+  gyroYangle += kalmanY.getRate()*((double)(micros()-timer)/1000000);
+  gyroZangle += kalmanZ.getRate()*((double)(micros()-timer)/1000000);
+ 
+  kalAngleX = kalmanX.getAngle(accXangle, gyroXrate, (double)(micros()-timer)/1000000); // Calculate the angle using a Kalman filter
+  kalAngleY = kalmanY.getAngle(accYangle, gyroYrate, (double)(micros()-timer)/1000000);
+ accY01=((float)accY/16384);
+ acc01=((float)accX/16384);
+ acc02=pow(pow(((float)acc01),2)+pow(((float)accY01),2),0.5);
+ acc03=((float)accX/16384)*cos(ZeroToYangle/RAD_TO_DEG);
+ if (ZeroSet)
+ {
+ accY01A.AddValue(accY01);
+ acc01A.AddValue(acc01);
+ acc02A.AddValue(acc02);
+ acc03A.AddValue(acc03);
+ 
+ 
+ if ((millis()-ZeroSetTime)&gt;800)
+ {
+ accY01Zero=accY01A.GetAverage();
+ acc01Zero=acc01A.GetAverage();
+ acc02Zero=acc02A.GetAverage();
+ acc03Zero=acc03A.GetAverage();
+      for (int i=0; i&lt;=50; i++)
+      {
+         accY01A.LastValues[i]=0;
+         acc01A.LastValues[i]=0;
+         acc02A.LastValues[i]=0;
+         acc03A.LastValues[i]=0;
+      }
+      accY01A.num=0;
+      acc01A.num=0;
+      acc02A.num=0;
+      acc03A.num=0;
+ Zeroed=true;
+ ZeroSet=false;
+ }
+ }
+if (Zeroed)
+{
+ ZeroToXangle=kalAngleX-ZeroXangle;   // угол X оси по отношению к плоскости измерения
+ ZeroToYangle=kalAngleY-ZeroYangle;   // угол Н оси по отношению к плоскости измерения
+ //accZeroX1=pow(pow(((float)accX/16384)-sin((kalAngleY-180)/RAD_TO_DEG),2)+pow(((float)accY/16384)-sin((kalAngleX-180)/RAD_TO_DEG),2),0.5);   // отнимаем ускорение свободного падения
+ //accZeroX1=((float)accX/16384);
+ //accZeroX1=((float)accX/16384)-sin((kalAngleY-180)/RAD_TO_DEG);
+ /*accY01=((float)accY/16384);
+ acc01=((float)accX/16384);
+ acc02=pow(pow(((float)accX/16384),2)+pow(((float)accY/16384),2),0.5);
+ acc03=((float)accX/16384)*cos(ZeroToYangle/RAD_TO_DEG);*/
+
+ //accZeroX2=accZeroX1*cos(ZeroToYangle/RAD_TO_DEG);  //Проецируем на плоскость измерения
+
+ //accZeroX2=accZeroX1;
+ if (Tock==0)
+ {
+ accY01A.AddValue(accY01-accY01Zero);
+ acc01A.AddValue(acc01-acc01Zero);
+ acc02A.AddValue(acc02-acc02Zero);
+ acc03A.AddValue(acc03-acc03Zero);
+ /* acc01A.AddValue(acc01);
+ acc02A.AddValue(acc02);
+ acc03A.AddValue(acc03);*/
+ Tock++;
+ counter++;
+ }
+ else  
+ {
+ Tock++;
+ if (Tock&gt;=AverageTime) Tock=0;
+ }
+}
+ timer = micros();
+ if (logging)
+    if ((millis()-timing)&gt;timeint)
+    {
+      
+      if (Zeroed)
+      {
+      //angZeroFiltred=ang0A.GetAverage();
+      accY01Filtred=accY01A.GetAverage();
+      acc01Filtred=acc01A.GetAverage();
+      acc02Filtred=acc02A.GetAverage();
+      acc03Filtred=acc03A.GetAverage();
+      acc02Filtred=pow(pow(((float)acc01Filtred),2)+pow(((float)accY01Filtred),2),0.5);
+      speedZero+=(float)(acc01Filtred*9.8)*((float)(timing-lasttiming)/1000)*3.6;   // Эмпирически вычисляем скорость в м/с=&gt;км/ч
+      distZero+=(float)((float)speedZero/3.6)*((float)(timing-lasttiming)/1000)/1000;   // Эмпирически вычисляем дистанцию в м=&gt;км
+      }
+
+    Serial.print(millis());
+    Serial.print(";");
+   // Serial.print("X:");
+    Serial.print(kalAngleX-180,0);
+    Serial.print(";");
+  
+    //Serial.print("Y:");
+    Serial.print(kalAngleY-180,0);
+    Serial.print(";");
+        Serial.print(gyroXrate,3);
+    Serial.print(";");
+        Serial.print(gyroYrate,3);
+    Serial.print(";");
+
+    Serial.print((float)accX/16384,3);
+    Serial.print(";");
+    //Serial.print("accY:");
+    Serial.print((float)accY/16384,3);
+    Serial.print(";");
+    //Serial.print("accZ:");
+    Serial.print((float)accZ/16384,3);
+    Serial.print(";");
+
+            //Serial.print("accZeroX1:");
+    //Serial.print((float)angZeroFiltred,1);    
+    //Serial.print(";");
+    Serial.print((float)distZero,3);      
+    Serial.print(";");
+    Serial.print((float)speedZero,3);   
+    Serial.print(";");
+        //Serial.print("accZeroX1:");
+    Serial.print((float)accY01Filtred,4);
+    
+    Serial.print(";");
+            //Serial.print("accZeroX2:");
+    Serial.print((float)acc01Filtred,4);
+    Serial.print(";");
+            //Serial.print("accZeroX2:");
+    Serial.print((float)acc02Filtred,4);
+    Serial.print(";");
+            //Serial.print("accZeroX2:");
+    Serial.print((float)acc03Filtred,4);
+
+    Serial.println(";");
+    lasttiming=timing;
+    timing=millis();
+    
+    }
+    
+  
+  // The accelerometer's maximum samples rate is 1kHz
+}
+void i2cWrite(uint8_t registerAddress, uint8_t data){
+  Wire.beginTransmission(IMUAddress);
+  Wire.write(registerAddress);
+  Wire.write(data);
+  Wire.endTransmission(); // Send stop
+}
+uint8_t* i2cRead(uint8_t registerAddress, uint8_t nbytes) {
+  uint8_t data[nbytes];
+  Wire.beginTransmission(IMUAddress);
+  Wire.write(registerAddress);
+  Wire.endTransmission(false); // Don't release the bus
+  Wire.requestFrom(IMUAddress, nbytes); // Send a repeated start and then release the bus after reading
+  for(uint8_t i = 0; i &lt; nbytes; i++)
+    data [i]= Wire.read();
+  return data;
+}
+
+void(* resetFunc) (void) = 0;
+
+void serialEvent() 
+{
+   while (Serial.available()) 
+   {
+    char inChar = (char)Serial.read();
+    if (inChar == ';') 
+    {
+      RunCommand(inputString);
+      inputString="";
+    }
+    else
+    {
+      inputString += inChar;
+    }
+  }
+}
+void  setZeroAngle()
+{
+  speedZero=0;
+  distZero=0;
+   ZeroXangle=kalAngleX;
+   ZeroYangle=kalAngleY;
+   accY01Zero=0;
+   acc01Zero=0;
+   acc02Zero=0;
+   acc03Zero=0;
+    accY01Filtred=0;
+      acc01Filtred=0;
+      acc02Filtred=0;
+      acc03Filtred=0;
+      acc02Filtred=0;
+      speedZero=0;   // Эмпирически вычисляем скорость в м/с=&gt;км/ч
+      distZero=0;   // Эмпирически вычисляем дистанцию в м=&gt;км
+     counter=0;
+   ZeroSetTime=millis();
+   ZeroSet=true;
+    Zeroed=false;
+}
+void RunCommand(String command)
+{
+  if ((command.substring(0,3)).equals("ti="))
+  {
+    timeint=command.substring(3).toInt();
+    //Serial.print("Set timeint=");
+   // Serial.println(timeint);
+  } 
+  else  
+  if ((command.substring(0,3)).equals("at="))
+  {
+    AverageTime=command.substring(3).toInt();
+    AverageTime=AverageTime*0.270/50;
+    //Serial.print("Set timeint=");
+   // Serial.println(timeint);
+  } 
+  if (command.equals("run"))
+  {
+    //int val=command.substring(3).toInt();
+    //Serial.println("command: set t=true;");
+    logging=true;
+  }else
+  if (command.equals("stop"))
+  {
+    //int val=command.substring(3).toInt();
+    //Serial.println("command: set t=false;");
+    logging=false;
+  }
+  if (command.equals("zero"))
+  {
+    //int val=command.substring(3).toInt();
+    //Serial.println("command: set t=false;");
+    //SetBeginingState();
+    setZeroAngle();
+  }
+  if (command.equals("reset"))
+  {
+    
+   
+  Serial.begin(115200);
+  Wire.begin();
+  Serial.begin(9600);
+            
+ 
+  i2cWrite(0x6B,0x00); // Disable sleep mode      
+  kalmanX.setAngle(180); // Set starting angle
+  kalmanY.setAngle(180);
+  kalmanZ.setAngle(180);
+  Zeroed=false;
+  acc01Zero=0;
+  acc02Zero=0;
+  acc03Zero=0;
+  accY01Zero=0;
+  ZeroToYangle=0;
+  timer = micros();
+   //setZeroAngle();
+   Zeroed=false;
+   ZeroSet=false;
+   resetFunc();
+  }
+}</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEAAANcNAADXDQAAAAAAAAAA
+        AAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAEAAAABAAAAAQAAAAEAAAABAAAAAgAA
+        AAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAEAAAABAAAAAQAAAAEAAAAB////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wAAAAABAAAAAQAAAAEAAAACAAAAAlVV
+        VQNVVVUDQEBABEBAQARAQEAEMzMzBTMzMwUzMzMFMzMzBUBAQARAQEAEVVVVA1VVVQMAAAACAAAAAgAA
+        AAIAAAABAAAAAQAAAAH///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAEAAAABAAAAAgAA
+        AAJVVVUDQEBABDMzMwUrKysGJCQkB0BAQAg5OTkJMzMzCjMzMwozMzMKMzMzCjMzMwo5OTkJOTk5CUBA
+        QAgkJCQHKysrBjMzMwVAQEAEVVVVAwAAAAIAAAACAAAAAQAAAAH///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8AAAAAAQAA
+        AAEAAAACVVVVA0BAQAQzMzMFJCQkBzk5OQkuLi4LQEBADDc3Nw4zMzMPLS0tETk5ORI5OTkSNjY2EzY2
+        NhM5OTkSPDw8ETAwMBAzMzMPNzc3DisrKwwzMzMKOTk5CSQkJAczMzMFQEBABFVVVQMAAAACAAAAAQAA
+        AAH///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wAAAAABAAAAAQAAAAJVVVUDQEBABCsrKwZAQEAILi4uCzc3Nw4wMDAQNjY2EzExMRU1NTUYMTExGjk5
+        ORs3NzccNTU1HTU1NR01NTUdNTU1HTc3Nxw5OTkbMzMzGTc3NxcxMTEVNjY2EzAwMBA7OzsNLi4uC0BA
+        QAgrKysGQEBABAAAAAMAAAACAAAAAQAAAAH///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wAAAAABAAAAAgAAAANAQEAEKysrBjk5OQkrKysMMzMzDzY2NhM3NzcXMTExGjU1
+        NR04ODggMzMzIzAwMCU2NjYmNDQ0JzMzMygyMjIpMjIyKTMzMyg0NDQnNjY2JjIyMiQ1NTUiMDAwIDU1
+        NR0xMTEaOjo6FjY2NhMzMzMPKysrDEBAQAgrKysGQEBABAAAAAIAAAABAAAAAf///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wAAAAABAAAAAkBAQAQrKysGQEBACCsrKwwwMDAQMzMzFDMz
+        Mxk1NTUdNjY2ITc3NyUzMzMoNTU1KzMzMy1FRUUzeXl5SJqaml6tra10urq6ibm5uYapqalwk5OTWnJy
+        ckM/Pz8wMzMzLTc3NyozMzMoMjIyJDg4OCA3NzccNTU1GDY2NhMzMzMPLi4uC0BAQAgzMzMFVVVVAwAA
+        AAIAAAAB////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAEAAAABgICAAkBAQAQkJCQHMzMzCjMz
+        Mw8zMzMUMzMzGTMzMx4zMzMjNDQ0JzU1NSs+Pj4xnJycYcfHx6PZ2dng39/f/t/f3//f39//39/f/9/f
+        3//f39//39/f/9/f3//f39//39/f/NfX19bAwMCWjY2NVTc3Ny41NTUrNDQ0JzU1NSI1NTUdNTU1GDY2
+        NhM3NzcOMzMzCisrKwZAQEAEAAAAAgAAAAH///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAEAAAABVVVVAzMz
+        MwUgICAIKysrDDw8PBE3NzcXNTU1HTU1NSIzMzMoNDQ0LJiYmFrOzs6z3Nzc7+Dg4P/g4OD/4ODg/+Dg
+        4P/g4OD/4ODg/+Dg4P/g4OD/4ODg/+Dg4P/g4OD/4ODg/9/f3//f39//39/f/9/f3//a2trlx8fHpX9/
+        f0o0NDQsNDQ0JzU1NSI3NzccLi4uFjAwMBArKysMJCQkB0BAQASAgIACAAAAAQAAAAH///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAA
+        AAEAAAABVVVVAzMzMwU5OTkJNzc3DjY2NhMxMTEaODg4IDY2NiY0NDQshYWFTtDQ0Lrg4OD+4ODg/+Dg
+        4P/h4eH/4eHh/+Hh4f/h4eH/4eHh/+Hh4f/h4eH/4eHh/+Hh4f/g4OD/4ODg/+Dg4P/g4OD/4ODg/+Dg
+        4P/g4OD/39/f/9/f3//e3t76x8fHpWlpaT81NTUrNzc3JTExMR8zMzMZOTk5Ejs7Ow1AQEAIMzMzBQAA
+        AAIAAAABAAAAAf///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AAAAAAEAAAABVVVVAysrKwY5OTkJMzMzDzExMRU3NzccMzMzIzg4OClpaWlAzMzMqeHh
+        4fvh4eH/4eHh/+Hh4f/h4eH/4eHh/+Hh4f/h4eH/2NjY/9DOzf/LxsD/xb60/8W6rv/Fu6//xr+3/8zI
+        w//S0dD/2tra/+Hh4f/g4OD/4ODg/+Dg4P/g4OD/39/f/9/f3//d3d30wcHBlVBQUDUzMzMoNTU1Ii8v
+        LxszMzMUNzc3Djk5OQkzMzMFAAAAAwAAAAEAAAAB////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AAAAAAEAAAABAAAAAzMzMwUzMzMKMzMzDy4uLhY1NTUdNzc3JTU1
+        NSuXl5db3d3d6uHh4f/h4eH/4uLi/+Li4v/i4uL/4eHh/9PT0f/Fu7D/xLKc/9Csgf/bqnD/46tq/+ut
+        Zf/urmT/7q9l/+yvaP/lrm//3q94/9Cwi//GtaL/x7+3/9fX1v/h4eH/4ODg/+Dg4P/g4OD/39/f/9/f
+        3//W1tbXd3d3Rzc3NyozMzMjNzc3HDExMRU3NzcOOTk5CTMzMwUAAAADAAAAAf///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wAAAAABAAAAAjMzMwU5OTkJMzMzDy4u
+        LhYzMzMeNzc3JTMzMy2zs7N64eHh+OLi4v/i4uL/4uLi/+Li4v/h4eH/zMfB/8Owmv/WqXX/6Klf/+qq
+        YP/rq2H/7K1j/+2uZP/ur2X/77Bm//CxZ//xsmj/8bJp//Gyaf/ys2n/8rNp/+6ybP/XsIP/xLWj/9HO
+        yv/h4eH/4ODg/+Dg4P/g4OD/39/f/9vb2+yamppeNTU1KzIyMiQ3NzccMzMzFDs7Ow1AQEAIQEBABAAA
+        AAIAAAAB////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAAAAABAAAAAkBA
+        QARAQEAINzc3DjExMRU1NTUdNjY2Jjc3Ny7IyMid4uLi/+Li4v/j4+P/4+Pj/+Pj4//Py8f/wrKf/9qm
+        a//op1z/6ahe/+qqYP/rq2H/7a1j/+6uZP/vr2b/8LFn//GyaP/ys2n/8rRq//O0a//ztWv/87Vs//O1
+        bP/ztWz/87Rr//K0av/dsn//w7an/9PS0P/h4eH/4ODg/+Dg4P/f39//3t7e+rOzs340NDQsMjIyJDc3
+        NxwzMzMUOzs7DUlJSQdAQEAEAAAAAgAAAAH///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8AAAAAAkBAQAQkJCQHOzs7DTMzMxQ3NzccNzc3JTMzMy3Hx8eh4+Pj/+Pj4//j4+P/4+Pj/+Dg
+        4P/Btqr/1aZw/+akWv/nplz/6ahd/+qpX//rq2H/7K1j/+6uZP/vsGb/8LFn//Gyaf/ys2r/87Vr//S2
+        bP/0tm3/9bdu//W3bv/1t27/9bdu//W2bf/0tm3/87Vr//K0av/WsYf/xr+1/+Dg4P/g4OD/4ODg/+Dg
+        4P/f39//srKyejU1NSszMzMjMTExGjk5ORIuLi4LJCQkB1VVVQMAAAAB////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8AAAAAAVVVVQMrKysGLi4uCzk5ORIxMTEaMzMzIzQ0NCy3t7d/4+Pj/+Pj
+        4//k5OT/5OTk/9zb2//AsJ//36Jd/+WkWf/mpVv/6Kdd/+mpXv/rqmD/7Kxi/+2uZP/vr2X/8LFn//Gy
+        af/ytGr/87Vs//S2bf/1t27/9rhv//e5cP/3uXH/97lx//e5cP/2uHD/9bhv//W2bf/0tWz/8rRr/+Sx
+        df/DuKv/3t7e/+Hh4f/g4OD/4ODg/97e3vmYmJhdNzc3KjY2NiEzMzMZMDAwEDMzMwozMzMFAAAAAgAA
+        AAH///8A////AP///wD///8A////AP///wD///8AAAAAAQAAAAJAQEAEOTk5CTMzMw81NTUYNjY2ITEx
+        MSqgoKBh4uLi+uTk5P/k5OT/5OTk/9fV0v/ErJL/4qFY/+SiWP/mpFn/56Zb/+ioXf/qqV//66th/+2t
+        Y//urmX/77Bm//GyaP/ys2r/87Vs//W2bf/2uG//97lw//i6cv/4u3L/+bxz//m8c//4u3P/+Lpy//e5
+        cP/2uG//9bdu//O1bP/ytGr/7LFs/8KyoP/b2tr/4eHh/+Dg4P/g4OD/29vb7Hd3d0czMzMoMTExHzo6
+        OhY3NzcOQEBACEBAQAQAAAACAAAAAf///wD///8A////AP///wD///8A////AAAAAAFVVVUDJCQkBysr
+        KwwzMzMUMzMzHjQ0NCd6enpH4ODg7uTk5P/k5OT/5eXl/93c2//Dqo//4p9U/+OhVv/ko1j/5qVa/+em
+        XP/pqF7/6qpg/+ysYv/trWP/769l//CxZ//xs2n/87Rr//S2bf/2uG//97lw//i7cv/5vHP/+r11//u+
+        df/7vnX/+r11//m8dP/4u3L/97lx//a4b//0tm3/87Rr//Kzaf/vsWj/wrOi/97e3v/h4eH/4ODg/+Dg
+        4P/X19fYSUlJNDc3NyU3NzccNjY2Ey4uLgsrKysGAAAAAwAAAAH///8A////AP///wD///8A////AAAA
+        AAEAAAACMzMzBTk5OQktLS0RMTExGjMzMyM0NDQs09PTt+Xl5f/l5eX/5eXl/+Hh4f+/rpz/355T/+Kh
+        Vf/mqWX/5aNY/+alWv/op1z/6ahe/+uqYP/srGL/7a5k/++wZv/wsWj/8rNq//O1bP/0t27/8rVt//i6
+        cf/5vHP/+r11//u/d//8wHj//MB4//y/d//6vnX/+bxz//i6cf/2uXD/9bdu//O1bP/ys2r/8LFo/+mv
+        a//CuKv/4eHh/+Hh4f/g4OD/4ODg/76+vpA1NTUrNjY2ITU1NRgzMzMPQEBACEBAQAQAAAACAAAAAf//
+        /wD///8A////AP///wAAAAABAAAAAyQkJAc7OzsNMTExFTExMR84ODgpmZmZWuXl5f7l5eX/5ubm/+Xl
+        5f/AtKf/251X/+CeUv/otHj/569v/+WjWP/mpVr/6Kdc/+mpXv/rqmD/7Kxi/+6uZP/vsGb/8LFo//Kz
+        av/or2//4MKi/+rYw//ivpb/8rdz//u+dv/8wHj//sJ6//7Cev/8wHj/+752//m8dP/4u3L/9rlw//W3
+        bv/0tWz/8rNq//GyaP/vsGb/4a1x/8a+tf/h4eH/4eHh/+Dg4P/e3t7yZ2dnPzQ0NCc1NTUdNjY2Ey4u
+        LgsrKysGAAAAAwAAAAH///8A////AP///wAAAAABAAAAAkBAQAQ5OTkJMDAwEDExMRoyMjIkOTk5LdnZ
+        2cvm5ub/5ubm/+bm5v/OycT/0Z1k/9+cUP/lrm7/7L+M/+asa//lo1j/5qVa/+inXP/pqF7/66pg/+ys
+        Yv/trmT/77Bm//CxaP/ys2r/47qN/////////////v7+/+K2hf/6vnX//L93//3AeP/9wHj//L93//u+
+        df/5vHP/+Lpy//a5cP/1t27/87Vs//Kzav/xsmj/77Bm/+6uZP/RroX/19XT/+Hh4f/g4OD/4ODg/8fH
+        x6Q0NDQsNTU1IjU1NRgzMzMPQEBACEBAQAQAAAAC////AP///wD///8AAAAAAQAAAAIrKysGKysrDDMz
+        MxQzMzMeMjIyKa2trWzm5ub/5ubm/+fn5//l5eX/wK2W/92aTv/ho13/6r6L/+y/jP/mqmb/5aNY/+al
+        Wv/nplz/6ahe/+qqYP/srGL/7a1k/++vZf/wsWf/8bNp/+PCnv/+/v7//v7+//39/f/iwp7/+bx0//q9
+        df/7vnb/+752//q+df/5vHT/+Lty//e6cf/2uG//9LZt//O1a//ys2n/8LFn/++vZv/trmT/66xj/8K1
+        pv/h4eH/4eHh/+Dg4P/f39/6f39/SjQ0NCc3NzccOTk5EjMzMwozMzMFAAAAAgAAAAH///8A////AAAA
+        AAFVVVUDICAgCDc3Nw41NTUYNTU1IjQ0NCzZ2dnG5+fn/+fn5//n5+f/yMG6/9WaWf/dmk//57V+/+q9
+        i//rv4z/5alk/+SiWP/mpFr/56Zb/+moXf/qqV//66th/+2tY//ur2X/8LBn//GyaP/hwZ7//f39//z8
+        /P/8/Pz/4sCc//i7cv/5u3P/+bxz//m8c//5vHP/+Lty//e6cf/2uG//9bdu//S1bP/ytGr/8bJp//Cw
+        Z//ur2X/7a1j/+urYf/WrHv/0c7L/+Hh4f/h4eH/4ODg/8bGxp81NTUrODg4IDo6OhY7OzsNJCQkB1VV
+        VQMAAAAB////AP///wAAAAACQEBABDk5OQk8PDwROTk5GzY2NiZdXV075+fn+ufn5//o6Oj/5ubm/8Cp
+        j//bmEz/4aZk/+m8if/qvYr/67+M/+WqaP/kolf/5aRZ/+elW//op13/6alf/+uqYP/srGL/7a5k/++v
+        Zv/wsWf/3rF///j18v/7+/v/9vPw/+Kzf//2uXD/97lx//e6cf/3unH/97lx//a5cP/2uG//9bdu//S1
+        bP/ztGv/8bNp//CxZ//vr2b/7q5k/+ysYv/rq2D/6alf/8Kzov/i4uL/4eHh/+Dg4P/Z2dnfMjIyLjIy
+        MiQzMzMZMzMzD0BAQAhAQEAEAAAAAv///wAAAAABAAAAAisrKwYuLi4LMzMzFDMzMx4yMjIptLS0dujo
+        6P/o6Oj/6Ojo/9TQzP/OmV3/25dM/+a3gf/pu4n/6r2K/+q+jP/mrm7/46FW/+WjWP/mpVr/56Zc/+mo
+        Xv/qql//66th/+2tY//urmT/77Bm/+6vaP/grnb/3riP/96ve//ztm3/9bdu//W3bv/1uG//9bhv//W3
+        bv/1t27/9LZt//O1bP/ytGv/8bNp//CxaP/vsGb/7q5l/+2tY//rq2H/6qpf/+moXv/Nq4P/2tra/+Hh
+        4f/h4eH/4ODg/4aGhk80NDQnNzc3HDk5ORIzMzMKMzMzBQAAAAIAAAABAAAAAVVVVQMkJCQHOzs7DTo6
+        OhY2NjYhNDQ0LNbW1rfo6Oj/6enp/+np6f/Et6n/2ZVJ/92eWP/ouof/6LuI/+q9iv/qvYv/5rBy/+Oh
+        Vf/kolf/5aRZ/+elW//op13/6ale/+qqYP/srGH/7a1j/+6uZf/vsGb/8LFn/+asav/wsmn/87Rr//O1
+        a//ztWz/9LVs//S1bP/ztWz/87Vr//O0a//ys2r/8bJp//CxZ//vsGb/7q5l/+2tY//srGL/6qpg/+mp
+        Xv/op13/4aVi/8jBuf/i4uL/4eHh/+Hh4f+/v7+RNzc3KjExMR8xMTEVKysrDCsrKwYAAAACAAAAAQAA
+        AAFAQEAEQEBACDMzMw8zMzMZMjIyJD8/PzDm5uby6enp/+rq6v/p6en/waqP/9iUSP/hqWv/57mH/+i7
+        iP/pvIn/6r2K/+ezd//ioFT/46FW/+SjWP/mpFr/56Zb/+inXf/pqV//66pg/+ysYf/trWP/56tm/928
+        mv/s4dj/38Ol/+Stbv/xsmn/8rNp//Kzav/ys2r/8rNp//Gyaf/xsmj/8LFo//CwZ//vr2b/7q5k/+2t
+        Y//srGL/66pg/+mpX//op13/56Zb/+akWv/Ds6H/4uLi/+Hh4f/h4eH/1dXVzzQ0NCw1NTUiNzc3Fzs7
+        Ow0kJCQHVVVVAwAAAAEAAAACQEBABDk5OQkwMDAQOzs7GjY2NiZ8fHxG6enp/+rq6v/q6ur/29vZ/8ma
+        ZP/Yk0f/5LR+/+a5hv/ouof/6LuI/+m8iv/otn//4Z9T/+KgVf/kolf/5aNY/+alWv/nplz/6Kdd/+mp
+        Xv/qqmD/66th/9uvgP/39/f/9vb2//b29v/dvJn/769m//CxZ//wsWf/8LFn//CxZ//wsGf/77Bm/++v
+        Zf/urmX/7a1k/+ysYv/rq2H/6qpg/+mpX//op13/56Zc/+alWv/lo1j/yKuK/9/f3//i4uL/4eHh/9zc
+        3O8yMjIuMjIyJDMzMxkzMzMPQEBACFVVVQMAAAABAAAAAjMzMwUzMzMKOTk5Ejc3Nxw0NDQnnZ2dXerq
+        6v/q6ur/6+vr/9DLxf/QlFH/2JZN/+W3hP/muYb/57mG/+i7iP/pu4n/6byJ/+GgV//hn1T/46BV/+Si
+        V//lo1j/5qVa/+emW//op13/6ahe/+qpX//Zrn//9vb2//X19f/09PT/8O3o/9yqdP/ur2X/7q9l/+6v
+        Zf/ur2X/7q5k/+2uZP/trWP/7Kxi/+ysYf/rq2D/6qpf/+moXv/op13/56Zb/+alWv/lo1j/5KJX/9Cl
+        df/Z2dn/4uLi/+Hh4f/h4eH/TExMNTc3NyUxMTEaMDAwEEBAQAhAQEAEAAAAAQAAAAIzMzMFMzMzCjY2
+        NhM1NTUdMzMzKLKysnLr6+v/6+vr/+zs7P/Kwrn/1JFG/9mZUv/lt4T/5riE/+a5hv/nuof/6LuI/+m8
+        if/jqWj/4J5S/+GfVP/joFX/5KJX/+WjWP/mpFr/56Zb/+inXP/pqF3/4aZi/+fXxv/09PT/8/Pz//Pz
+        8//j0b3/4Klr/+ysYv/srGL/7Kxi/+ysYv/srGH/66th/+uqYP/qql//6ale/+moXf/op1z/56Zb/+ak
+        Wv/lo1j/5KJX/+OhVf/UoGX/09LQ/+Li4v/i4uL/4eHh/39/f0o2NjYmOTk5Gzw8PBE5OTkJQEBABAAA
+        AAIAAAACMzMzBS4uLgs2NjYTMzMzHjIyMinExMSI6+vr/+zs7P/s7Oz/x7uv/9SPQv/anFn/5LaD/+W3
+        hP/muIX/5rmG/+i6h//ou4j/5rJ4/9+cUf/gnlL/4Z9U/+KgVf/joVf/5KNY/+WkWf/mpVr/56Zb/+in
+        XP/YqHT/7ufh//Ly8v/x8fH/8fHx/+DJsP/hqGj/66pg/+qqYP/qqmD/6qlf/+qpX//pqF7/6Khd/+in
+        XP/nplv/5qVa/+WkWf/ko1j/46FX/+KgVf/hn1T/2p9b/8zHwv/i4uL/4uLi/+Hh4f+dnZ1hNDQ0Jzc3
+        Nxw8PDwROTk5CUBAQAQAAAACAAAAAjMzMwUuLi4LMzMzFDExMR8xMTEq0NDQnezs7P/s7Oz/7e3t/8W2
+        pv/TjkH/2p9e/+S1gv/ktoP/5beE/+a4hf/nuYb/6LqH/+i5hv/enFH/35xR/+CdUv/hn1P/4qBV/+Oh
+        Vv/kolf/5aNY/+WkWf/mpVr/56Zb/9aqef/u6+f/8PDw/+/v7//v7+//38my/9+maP/pqF7/6Khd/+in
+        Xf/op1z/56Zc/+emW//mpVr/5aRZ/+WjWP/kolf/46FW/+KgVf/hn1P/4J1S/96cUv/Hv7b/4+Pj/+Li
+        4v/h4eH/sbGxdjMzMyg1NTUdOTk5EjMzMwozMzMFAAAAAgAAAAIzMzMFLi4uCzMzMxQxMTEfMTExKs7O
+        zpnt7e3/7e3t/+7u7v/Ft6j/0o1A/9ufXv/jtYH/5LWC/+S2g//lt4T/5riF/+e5hv/ouof/4qdn/96b
+        T//fnFD/4J1S/+GeU//in1T/4qBV/+OhVv/kolf/5KNY/+WkWf/lpFn/1a2A/+3s6v/u7u7/7u7u/+3t
+        7f/awaX/4aVg/+elW//mpVr/5qVa/+akWf/lo1n/5KNY/+SiV//joVb/4qBV/+KfVP/hnlP/4J1S/9+c
+        UP/cm1L/ycG5/+Pj4//i4uL/4uLi/66urnEzMzMoNzc3HDk5ORIzMzMKMzMzBQAAAAIAAAACMzMzBS4u
+        Lgs2NjYTMzMzHjIyMinCwsKC7e3t/+7u7v/u7u7/yL2y/9GLPv/Xmlb/4rOA/+O1gf/ktYL/5LeD/+W3
+        hP/muIX/5rmG/+a3gv/dm1D/3ZpO/96bUP/fnFH/4J1S/+GeU//in1T/4qBV/+OhVv/joVb/5KJX/+Ki
+        WP/Ur4j/7ezs/+zs7P/s7Oz/6+vr/9Svh//lo1j/5aNY/+SiWP/kolf/46FW/+OhVv/ioFX/4p9U/+Ge
+        U//gnVL/35xR/96bUP/dmk7/1JtZ/8/Kxv/j4+P/4uLi/+Li4v+Xl5dbNDQ0Jzc3Nxw8PDwROTk5CUBA
+        QAQAAAACAAAAAjMzMwUzMzMKNjY2EzU1NR0zMzMosbGxbO7u7v/u7u7/7+/v/8zEvP/Oi0P/1ZZQ/+Gz
+        f//is4D/47WB/+S1gv/ktoP/5beE/+a4hf/muYb/4ahp/9yYTf/dmU7/3ppP/96bUP/WnF7/3JtT/+Ge
+        U//hn1T/4p9U/+KgVf/ioFX/36BX/9vDrP/r6+v/6urq/+rq6v/i2tH/2qBh/+OhVv/ioFX/4qBV/+Kf
+        VP/hn1P/4Z5T/+CdUv/fnFH/3ptQ/96aT//dmU7/3JhN/86cYv/V1dT/4+Pj/+Pj4//i4uL/dHR0RDY2
+        NiY5OTkbPDw8ETk5OQlAQEAEAAAAAgAAAAJAQEAEOTk5CTw8PBE3NzccNDQ0J5qamlbv7+//7+/v//Dw
+        8P/W0s3/yI1M/9OQSP/gsn7/4bN//+KzgP/jtYH/5LWC/+S2g//lt4T/5reE/+a3gv/bmlD/25hM/9aZ
+        Vf/XuJf/6ePc/9/Muf/Womr/351R/+CdUv/gnlL/4Z5T/+GfU//VrYL/6urq/+np6f/o6Oj/6Ojo/9Sl
+        cf/hn1P/4Z5T/+CeUv/gnVL/351R/9+cUP/em1D/3ppP/92aTv/cmU3/25hM/9qXS//IoHL/29vb/+Pj
+        4//j4+P/4eHh/T4+PjEwMDAlMTExGjAwMBBAQEAIQEBABAAAAAEAAAABQEBABDk5OQkwMDAQMTExGjAw
+        MCVxcXE/7+/v//Dw8P/w8PD/5eXk/8KXaf/PiT3/3q54/+Cxfv/hs3//4bOA/+K0gf/jtYL/5LaC/+S3
+        g//lt4T/4axw/9qWSv/Tp3j/8PDw/+/v7//u7u7/28Oq/9uZUP/em1D/35xQ/9+cUf/fnFH/06l8/+np
+        6f/o6Oj/5+fn/+fn5//Vq33/35xR/9+cUf/fnFD/3ptQ/96bT//dmk7/3ZlN/9yYTf/bmEz/25dL/9qW
+        Sv/ZlUn/waiK/+Pj4//j4+P/4+Pj/97e3uoyMjIuMzMzIzU1NRg3NzcOSUlJB1VVVQMAAAABAAAAAVVV
+        VQNAQEAINzc3DjU1NRgzMzMjMzMzLerq6uTw8PD/8fHx//Hx8f/AqpP/zoc6/9miZP/fsX3/4LF+/+Gy
+        f//hs4D/4rSA/+O1gf/ktYL/5LaD/+S3hP/epGP/1rSO/+7u7v/u7u7/7e3t/+nn5P/Sn2n/3JlN/92Z
+        Tv/dmk7/3JlP/9e9ov/n5+f/5+fn/+bm5v/l5eX/06Ft/92aT//dmk7/3ZlO/9yZTf/cmE3/25hM/9uX
+        S//alkr/2pZK/9mVSf/YlEj/15NH/8Gzo//k5OT/5OTk/+Pj4//S0tK+NDQ0LDY2NiE6OjoWOzs7DSQk
+        JAdVVVUDAAAAAQAAAAFVVVUDJCQkBzs7Ow06OjoWNjY2ITU1NSvX19el8fHx//Ly8v/y8vL/yb6y/8yH
+        O//Tk07/3698/9+xfP/gsX7/4bJ+/+Gzf//hs4D/4rSB/+O1gv/ktYL/5LWC/9Wndf/r6ef/7Ozs/+zs
+        7P/r6+v/39DA/9Gkc//UmVr/05xf/9Grgv/l4+D/5ubm/+bm5v/l5eX/4NrV/9OXVv/cmEz/25hM/9uX
+        S//bl0v/2pZK/9qWSv/ZlUn/2ZRI/9iUR//Xk0f/15JG/8+UVf/OycT/5OTk/+Tk5P/j4+P/tbW1fjg4
+        OCkzMzMeMzMzFC4uLgsrKysGAAAAAgAAAAEAAAABAAAAAjMzMwUuLi4LNjY2EzMzMx4zMzMorKysZPLy
+        8v/y8vL/8/Pz/+Lh3v/CkVz/zYY6/9ysdv/er3z/37B8/9+xff/gsX7/4bJ+/+GzgP/is4D/4rSB/+O1
+        gf/isn7/2sCl/+vr6//r6+v/6urq/+np6f/o6Oj/5N/b/+Xi4P/m5ub/5ubm/+Xl5f/k5OT/5OTk/9Gt
+        iP/Zlkr/2pZK/9qVSf/ZlUn/2ZVJ/9iUSP/YlEf/2JNH/9eSRv/WkkX/1pFE/9WQQ//Co4L/4eHh/+Tk
+        5P/k5OT/4uLi/WlpaT82NjYmOTk5Gzk5ORIzMzMKQEBABAAAAAIAAAAB////AAAAAAJAQEAEOTk5CTAw
+        MBAxMTEaNzc3JT09PTHv7+/w8/Pz//Pz8//09PT/vauX/8uENv/Ul1X/3a56/96ve//fr3z/37B8/+Cx
+        ff/gsX7/4bJ//+Gzf//is4D/4rSA/9+3jP/g0MD/6enp/+np6f/o6Oj/5+fn/+fn5//m5ub/5eXl/+Tk
+        5P/k5OT/4+Pj/9fFsv/TlVL/2JRI/9iUR//Yk0f/15NH/9eTRv/Xkkb/1pJF/9aRRP/VkET/1ZBD/9SP
+        Qv/Sj0P/wLSm/+Xl5f/l5eX/5OTk/9jY2M0zMzMtMzMzIzU1NRgzMzMPICAgCEBAQAQAAAAB////AP//
+        /wAAAAABVVVVAyQkJAc3NzcONzc3FzY2NiE1NTUr39/fsfPz8//09PT/9fX1/9nV0f/DkFj/y4Q4/9un
+        cP/drnr/3a96/96ve//fsHz/37F8/+Cxff/gsX7/4bJ+/+Gzf//hs4D/37eO/93Jtf/n5+b/5+fn/+bm
+        5v/l5eX/5eXl/+Tk5P/j4+P/4+Pi/9O6nv/QmV3/1pJF/9aSRf/WkUX/1pFF/9aRRP/VkET/1ZBD/9WP
+        Q//Uj0L/1I5C/9OOQf/SjUD/wZ96/9zc2//l5eX/5eXl/+Tk5P+/v7+KMjIyKTo6Oh8xMTEVKysrDCsr
+        KwYAAAADAAAAAf///wD///8AAAAAAQAAAAIzMzMFLi4uCzY2NhM1NTUdNDQ0J5GRkVDz8/P89fX1//X1
+        9f/29vb/v7Cf/8mCNP/QkUz/3K14/92tef/drnr/3a96/96ve//fr3z/37B8/9+xff/gsX7/4LJ+/+Gy
+        fv/ftIP/1a+F/9S8ov/e1cz/4+Hg/+Lg3//azsL/0baa/82jdf/SkUf/1ZBD/9WPQ//Uj0P/1I9D/9SP
+        Qv/Uj0L/1I5C/9OOQf/TjUH/0o1A/9KMP//Riz//zo1E/8O5rf/m5ub/5eXl/+Xl5f/h4eHsWVlZODc3
+        NyU5OTkbPDw8ETMzMwozMzMFAAAAAgAAAAH///8A////AP///wAAAAACQEBABEBAQAgwMDAQNTU1GDMz
+        MyM0NDQs3NzcrfX19f/29vb/9vb2/+Pg3v++lGj/yYEz/9SbXP/brHj/3K14/92tef/drnr/3a96/96v
+        e//fr3z/37B8/9+wfP/fsX3/4LF+/+Cxfv/bqG7/0JRT/8uUWv/Lllv/0I5G/9ONQP/TjUD/041B/9ON
+        Qf/TjUD/041A/9ONQP/SjUD/0oxA/9KMP//RjD//0Ys+/9GLPv/Qij3/0Ik8/72jhf/i4uL/5ubm/+Xl
+        5f/l5eX/vLy8hjc3Nyo2NjYhNzc3Fzc3Nw4gICAIVVVVAwAAAAH///8A////AP///wD///8AAAAAAQAA
+        AAMrKysGKysrDDMzMxQ1NTUdNDQ0J3l5eUP09PT29vb2//f39//4+Pj/zMS7/8OKTP/IgTT/16Fm/9ur
+        d//brHj/3K14/92tef/drXr/3a56/92vev/er3v/3q98/9+wfP/fsHz/37B8/9+wfP/aomX/045E/9GL
+        Pv/Riz7/0Ys+/9GLPv/Riz7/0Ys+/9GLPv/Riz7/0Yo9/9CKPf/Qij3/0Ik8/8+JPP/PiDv/zog7/8KX
+        af/RzMf/5+fn/+bm5v/l5eX/3t7e4EZGRjI3NzclNzc3HDk5ORIzMzMKMzMzBQAAAAIAAAAB////AP//
+        /wD///8A////AAAAAAEAAAACQEBABDk5OQkzMzMPNTU1GDU1NSI1NTUr1dXVmvf39//39/f/+Pj4//n5
+        +f/DuKz/w4I7/8mDN//Xo2r/26t2/9urd//brHj/3Kx4/9yteP/drXn/3a16/92uev/drnr/3q97/96v
+        e//er3v/3698/96uef/Ynl//0pFJ/8+JPP/PiTz/z4k8/8+JPP/PiTv/z4g7/8+IO//OiDv/zog6/86H
+        Ov/Ohzn/zYY5/8aPU//Iwbj/5+fn/+fn5//m5ub/5eXl/7CwsHI3NzcqMDAwIDo6OhY3NzcOQEBACEBA
+        QAQAAAACAAAAAf///wD///8A////AP///wD///8AAAAAAQAAAAMrKysGLi4uCzY2NhM3NzccNjY2JlVV
+        VTXt7e3V+Pj4//n5+f/5+fn/9/f3/76vnv/EfzX/x4E0/9SdYf/aqnb/2qt2/9urdv/bq3f/26x4/9ys
+        eP/crXj/3K15/92tef/drXr/3a56/92uev/drnr/3a56/92uev/cqnL/1p1d/9GQSP/Nhzr/zYY5/82G
+        Of/Nhjn/zYY4/8yFOP/MhTj/zIU3/8eJRv/Btqr/6Ojo/+fn5//n5+f/5ubm/9LS0rU0NDQsMjIyJDEx
+        MRo8PDwRMzMzCjMzMwUAAAACAAAAAf///wD///8A////AP///wD///8A////AAAAAAEAAAACQEBABEBA
+        QAg3NzcOOjo6FjExMR8zMzMofX19RfPz8+r5+fn/+vr6//v7+//19fX/wLKj/8KDQP/FfjD/0JVV/9mp
+        dP/ZqXX/2qp2/9qqdv/bq3b/26t3/9urd//brHj/26x4/9yseP/crXj/3K14/9yteP/crXn/3K15/92t
+        ef/drXn/3Kx4/9qocf/Yomj/1p5g/9CRSv/Lgzb/yoM1/8OPV//CuK3/5+fn/+jo6P/n5+f/5+fn/93d
+        3dJJSUk0NjY2JjMzMx4zMzMUOzs7DSQkJAdVVVUDAAAAAf///wD///8A////AP///wD///8A////AP//
+        /wD///8AAAAAAQAAAAIzMzMFMzMzCjAwMBA1NTUYNjY2ITc3NyqkpKRa+Pj49/r6+v/7+/v//Pz8//v7
+        +//JvrT/v4xV/8R8Lf/Jhj7/1J1i/9modP/ZqHT/2al1/9qpdf/aqnb/2qp2/9urdv/bq3b/26t3/9ur
+        d//bq3f/26t3/9urd//bq3f/26t3/9urd//bq3f/2KRs/8+QSv/JgTT/yYEz/7+Ybv/KxLz/6urq/+np
+        6f/o6Oj/5+fn/+Hh4edzc3NDMzMzKDo6Oh83NzcXMzMzDzk5OQkzMzMFAAAAAgAAAAH///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wAAAAABVVVVAyQkJAcuLi4LOTk5EjExMRozMzMjNTU1K8DA
+        wHb6+vr9/Pz8//z8/P/9/f3//f39/9bPyP+9n4D/wXwz/8R7Lf/KiEH/1J1i/9inc//ZqHT/2ah0/9mo
+        dP/ZqXT/2al1/9mpdf/ZqXX/2qp2/9qqdv/aqnb/2qp2/9qqdv/Xo2v/zo9K/8iAM//HfzH/w4Q//7ym
+        jv/X08//6urq/+np6f/p6en/6Ojo/+Tk5PSTk5NXMjIyKTY2NiE1NTUYLS0tETMzMwozMzMFAAAAAwAA
+        AAH///8A////AP///wD///8A////AP///wD///8A////AP///wD///8AAAAAAQAAAAJAQEAESUlJB0BA
+        QAw2NjYTOTk5GzMzMyM1NTUrurq6a/n5+fP9/f3//f39//7+/v/+/v7/9fX1/8e8sf+8mXP/wnsu/8N6
+        LP/GfzL/y4xH/9GaXf/Womr/16Zw/9ioc//YqHT/2ah0/9ekbv/UnmP/0ZhZ/86RTv/LikL/xn8w/8Z+
+        L//EgDf/vKCC/8e/t//p6en/6+vr/+rq6v/p6en/6Ojo/+Li4uSRkZFTNzc3KjU1NSIzMzMZOTk5Eisr
+        KwwrKysGVVVVAwAAAAEAAAAB////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wAAAAABAAAAAkBAQARAQEAIOzs7DTMzMxQ5OTkbMzMzIzc3NyqYmJhR9vb24v39/f/+/v7//v7+//39
+        /f/8/Pz/7ezs/8W4qv+8oYT/vIZM/8J6K//DeSv/w3or/8N6LP/EfjH/x4I3/8V+Mv/Eey3/xHst/8R7
+        Lf/Eey3/w3wx/7yMWP+8pIr/xbuw/+fn5//s7Oz/6+vr/+vr6//q6ur/6enp/93d3cxra2s+MjIyKTU1
+        NSIxMTEaOTk5EkBAQAxJSUkHQEBABAAAAAIAAAAB////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AAAAAAEAAAACQEBABEBAQAg7OzsNMzMzFC8vLxs1NTUiMjIyKW5u
+        bj3v7+/H/f39//39/f/9/f3//Pz8//v7+//6+vr/+Pj4/+De2//Fua3/vKeP/7ufgf+6lW3/u4lV/7yC
+        Qv+8gkT/u41a/7uYcv+6n4P/vamU/8a7sP/f3t3/7u7u/+3t7f/t7e3/7Ozs/+vr6//q6ur/6urq/9PT
+        06tHR0cxMzMzKDY2NiEzMzMZOTk5EisrKwxJSUkHQEBABAAAAAIAAAAB////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wAAAAABAAAAAQAAAAIzMzMFQEBACDs7
+        Ow02NjYTMzMzGTg4OCA0NDQnMzMzLcHBwXT09PTf/Pz8//v7+//7+/v/+vr6//n5+f/5+fn/+Pj4//f3
+        9//19fX/7u7u/+Xl5f/a2NX/3NrY/+Tk5P/s7Oz/8fHx//Dw8P/w8PD/7+/v/+7u7v/t7e3/7Ozs/+zs
+        7P/r6+v/39/fzqCgoF80NDQsNjY2JjExMR81NTUYOTk5EisrKwwkJCQHQEBABAAAAAIAAAAB////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wAAAAABAAAAAjMzMwUgICAIKysrDDw8PBE3NzcXMzMzHjIyMiQ4ODgpQ0NDMMvLy4L29vbp+vr6//r6
+        +v/5+fn/+Pj4//f39//39/f/9vb2//X19f/19fX/9PT0//Pz8//y8vL/8vLy//Hx8f/w8PD/7+/v/+7u
+        7v/u7u7/7e3t/+zs7P/j4+Par6+vbTIyMi4zMzMoMzMzIzU1NR06OjoWMDAwEC4uLgskJCQHQEBABAAA
+        AAIAAAAB////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AAAAAAGAgIACQEBABCQkJAczMzMKMzMzDzMzMxQxMTEaODg4IDc3
+        NyU3NzcqUVFRNcPDw3jl5eW39fX18vj4+P/39/f/9vb2//b29v/19fX/9PT0//Pz8//z8/P/8vLy//Hx
+        8f/w8PD/8PDw/+/v7//u7u7/6enp6tbW1qywsLBqNjY2LzIyMikyMjIkMTExHzMzMxkzMzMUNzc3DjMz
+        MworKysGQEBABAAAAAIAAAAB////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8AAAAAAQAAAAJAQEAEKysrBjk5
+        OQk7OzsNPDw8ETo6OhY5OTkbMDAwIDAwMCUyMjIpNDQ0LEZGRjKzs7Nn3Nzcpujo6Mnu7u7e8vLy8/T0
+        9P/z8/P/8vLy//Ly8v7u7u7v6Ojo2uLi4sXR0dGcoKCgWzo6OjA0NDQsMzMzKDIyMiQxMTEfMTExGjEx
+        MRUwMDAQKysrDEBAQAgzMzMFVVVVAwAAAAIAAAAB////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wAAAAABAAAAAlVVVQMzMzMFJCQkBzMzMwo3NzcOOTk5Ei4uLhYxMTEaMzMzHjU1NSI3NzclMzMzKDc3
+        Nyo0NDQsMjIyLjY2Ni9aWlo3jY2NTYWFhUpNTU00NjY2LzMzMy00NDQsNzc3KjQ0NCcwMDAlNjY2ITU1
+        NR0xMTEaMTExFS0tLRE7OzsNMzMzCiQkJAdAQEAEgICAAgAAAAEAAAAB////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AAAAAAEAAAABAAAAAlVVVQMzMzMFQEBACDMzMwo7OzsNLS0tETMz
+        MxQ3NzcXMTExGjU1NR0xMTEfNTU1IjMzMyMyMjIkNzc3JTY2NiY2NjYmNzc3JTIyMiQzMzMjNjY2ITEx
+        MR81NTUdMTExGjc3Nxc2NjYTMDAwEDs7Ow0zMzMKJCQkBzMzMwVVVVUDAAAAAgAAAAEAAAAB////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAEAAAABAAAAAkBA
+        QAQzMzMFJCQkBzk5OQkrKysMNzc3DjAwMBA2NjYTMTExFTc3Nxc1NTUYMzMzGTExMRoxMTEaMTExGjEx
+        MRozMzMZNTU1GC4uLhYzMzMUOTk5EjAwMBA3NzcOLi4uCzk5OQkkJCQHMzMzBVVVVQMAAAACAAAAAQAA
+        AAH///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AAAAAAEAAAABAAAAAlVVVQNAQEAEKysrBiQkJAc5OTkJMzMzCisrKww7OzsNNzc3DjMz
+        Mw8wMDAQMDAwEDAwMBAzMzMPMzMzDzc3Nw47OzsNKysrDDMzMwo5OTkJJCQkBzMzMwVAQEAEVVVVAwAA
+        AAIAAAABAAAAAf///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8AAAAAAQAAAAEAAAABAAAAAgAAAAJVVVUDQEBABDMz
+        MwUrKysGJCQkByQkJAdAQEAIQEBACEBAQAhAQEAIQEBACEBAQAgkJCQHKysrBisrKwYzMzMFQEBABFVV
+        VQMAAAACAAAAAgAAAAEAAAAB////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAA
+        AAEAAAABAAAAAQAAAAIAAAACAAAAAlVVVQNVVVUDVVVVA0BAQARAQEAEQEBABFVVVQNVVVUDVVVVA1VV
+        VQMAAAACAAAAAgAAAAEAAAABAAAAAQAAAAH///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8AAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAA
+        AAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAH///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A///+AAD///////AAAA//////wAAAA/////8AAAAA/////AAAAAA////4AAAAAB////AAAAAA
+        D///wAAAAAAH//+AAAAAAAH//wAAAAAAAP/+AAAAAAAAf/wAAAAAAAB//AAAAAAAAD/4AAAAAAAAH/gA
+        AAAAAAAf8AAAAAAAAA/gAAAAAAAAB+AAAAAAAAAHwAAAAAAAAAPAAAAAAAAAA4AAAAAAAAADgAAAAAAA
+        AAGAAAAAAAAAAYAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAYAAAAAAAAABgAAAAAAAAAHAAAAAAAAAA8AA
+        AAAAAAADwAAAAAAAAAPgAAAAAAAAB+AAAAAAAAAP8AAAAAAAAA/4AAAAAAAAH/gAAAAAAAAf/AAAAAAA
+        AD/+AAAAAAAAf/4AAAAAAAD//4AAAAAAAf//wAAAAAAD///gAAAAAAf///AAAAAAD///+AAAAAAf///+
+        AAAAAH////+AAAAB/////8AAAAf/////+AAAH///////gAH///8=
+</value>
+  </data>
+</root>

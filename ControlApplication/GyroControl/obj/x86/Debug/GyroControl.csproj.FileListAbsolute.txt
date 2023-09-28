@@ -1,0 +1,9 @@
+d:\Work\Projects\GyroControl\GyroControl\obj\x86\Debug\GyroControl.GyroForm.resources
+d:\Work\Projects\GyroControl\GyroControl\obj\x86\Debug\GyroControl.Properties.Resources.resources
+d:\Work\Projects\GyroControl\GyroControl\bin\Debug\GyroControl.exe
+d:\Work\Projects\GyroControl\GyroControl\bin\Debug\GyroControl.pdb
+d:\Work\Projects\GyroControl\GyroControl\obj\x86\Debug\GyroControl.exe
+d:\Work\Projects\GyroControl\GyroControl\obj\x86\Debug\GyroControl.pdb
+D:\Work\Projects\GyroControl\GyroControl\obj\x86\Debug\GyroControl.csproj.GenerateResource.Cache
+D:\Work\Projects\GyroControl\GyroControl\obj\x86\Debug\GyroControl.csprojResolveAssemblyReference.cache
+D:\Work\Projects\GyroControl\GyroControl\obj\x86\Debug\GyroControl.HelpForm.resources
