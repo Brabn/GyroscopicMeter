@@ -1,9 +1,0 @@
-D:\Work\Projects\GyroControl\GyroControl\bin\Release\GyroControl.exe
-D:\Work\Projects\GyroControl\GyroControl\bin\Release\GyroControl.pdb
-D:\Work\Projects\GyroControl\GyroControl\obj\x86\Release\GyroControl.GyroForm.resources
-D:\Work\Projects\GyroControl\GyroControl\obj\x86\Release\GyroControl.Properties.Resources.resources
-D:\Work\Projects\GyroControl\GyroControl\obj\x86\Release\GyroControl.exe
-D:\Work\Projects\GyroControl\GyroControl\obj\x86\Release\GyroControl.pdb
-D:\Work\Projects\GyroControl\GyroControl\obj\x86\Release\GyroControl.HelpForm.resources
-D:\Work\Projects\GyroControl\GyroControl\obj\x86\Release\GyroControl.csproj.GenerateResource.Cache
-D:\Work\Projects\GyroControl\GyroControl\obj\x86\Release\GyroControl.csprojResolveAssemblyReference.cache
