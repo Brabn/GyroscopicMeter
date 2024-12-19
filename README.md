@@ -1,8 +1,8 @@
 # Gyroscopic vehicle dynamics meter
 
-System for measuring the dynamic characteristics of a car on a three-axis accelerometer/gyroscope.
+[System for measuring](https://techi-news.com/Projects/Gyroscopic-dynamics-measurement-system-for-vehicle) the dynamic characteristics of a vehicle on a three-axis accelerometer/gyroscope.
 
-Passive system that does not require connection to the car's on-board computer, it is enough to install it rigidly inside the cabin.
+Passive system that does not require connection to the vehicle's on-board computer, it is enough to install it rigidly inside the cabin.
 
 After turning on, the system begins to receive data on accelerations and turns in real time, on the basis of which it generates relative data on movement, turn, speed and acceleration. 
 Data is transferred to a PC via USB connection (COM-port emulation) and processed by a control application. 
