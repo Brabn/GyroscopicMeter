@@ -1,6 +1,6 @@
 # Gyroscopic vehicle dynamics meter
 
-[System for measuring](https://techi-news.com/Projects/Gyroscopic-dynamics-measurement-system-for-vehicle) the dynamic characteristics of a vehicle on a three-axis accelerometer/gyroscope.
+[System for measuring](https://techi-news.com/Projects/Gyroscopic-dynamics-measurement-system-for-vehicle) the dynamic characteristics of a vehicle using three-axis accelerometer/gyroscope.
 
 Passive system that does not require connection to the vehicle's on-board computer, it is enough to install it rigidly inside the cabin.
 
